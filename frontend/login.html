@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BRMS | Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="left-panel">
+    <h1>Welcome Back</h1>
+    <p>
+      Log in to access the Barangay Resource Management System
+      and manage resources efficiently.
+    </p>
+    <ul>
+      <li>✔ Secure login</li>
+      <li>✔ Role-based access</li>
+      <li>✔ Barangay operations</li>
+    </ul>
+  </div>
+
+  <div class="right-panel">
+    <h2>Login</h2>
+    <span>Enter your credentials</span>
+
+    <form method="POST" action="../backend/login.php">
+
+        <p id="loginError" style="color:red; display:none; font-size:13px;">
+        Invalid email or password.
+        </p>
+
+      <div class="input-group full">
+        <label>Email</label>
+        <input type="email" name="email" placeholder="Enter your email" required>
+      </div>
+
+      <div class="input-group full">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter your password" required>
+      </div>
+
+      <div class="remember-me">
+        <input type="checkbox" name="remember_me" id="remember_me">
+        <label for="remember_me">Remember me</label>
+      </div>
+
+      <button type="submit">Login</button>
+
+    </form>
+
+    <div class="login-link">
+      Don’t have an account? <a href="register.html">Register</a>
+    </div>
+  </div>
+
+</div>
+<script>
+const params = new URLSearchParams(window.location.search);
+
+if (params.get('registered') === 'success') {
+  alert('Registration successful! Please log in.');
+}
+
+if (params.get('error') === 'invalid') {
+  document.getElementById('loginError').style.display = 'block';
+}
+
+if (params.get('logout') === 'success') {
+  alert('You have been logged out.');
+}
+</script>
+
+</body>
+</html>

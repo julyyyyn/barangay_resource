@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BRMS | User Registration</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/register.css">
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="left-panel">
+    <h1>BRMS Registration</h1>
+    <p>Register as a resident in the Barangay Resource Management System.</p>
+    <ul>
+      <li>✔ Secure access</li>
+      <li>✔ Role-based control</li>
+      <li>✔ Admin verification required</li>
+    </ul>
+  </div>
+
+  <div class="right-panel">
+    <h2>User Registration</h2>
+    <span>Create a resident account</span>
+
+    <form method="POST" action="../backend/register.php">
+      <div class="form-grid">
+
+        <div class="input-group">
+          <label>First Name</label>
+          <input type="text" name="first_name" placeholder="First name" required>
+        </div>
+
+        <div class="input-group">
+          <label>Last Name</label>
+          <input type="text" name="last_name" placeholder="Last name" required>
+        </div>
+
+        <div class="input-group full">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="Email" required>
+        </div>
+
+        <div class="input-group full">
+          <label>Password</label>
+          <input type="password" name="password" id="password" placeholder="Password" required>
+          <small id="passwordError" style="color:red; display:none;">Password too weak</small>
+        </div>
+
+        <div class="input-group full">
+          <label>Confirm Password</label>
+          <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" required>
+          <small id="confirmError" style="color:red; display:none;">Passwords do not match</small>
+        </div>
+
+        <div class="input-group">
+          <label>Contact Number</label>
+          <input type="text" name="contact_no" placeholder="09XXXXXXXXX">
+        </div>
+
+        <!-- Address dropdowns -->
+        <div class="input-group full">
+          <label>Province</label>
+          <select name="province" id="province" required>
+            <option value="">Select Province</option>
+            <option value="Negros Occidental">Negros Occidental</option>
+          </select>
+        </div>
+
+        <div class="input-group full">
+          <label>City / Municipality</label>
+          <select name="city" id="city" required>
+            <option value="">Select City/Municipality</option>
+          </select>
+        </div>
+
+        <div class="input-group full">
+          <label>Barangay</label>
+          <select name="barangay" id="barangay" required>
+            <option value="">Select Barangay</option>
+          </select>
+        </div>
+
+        <div class="input-group full">
+          <label>Purok / Sitio</label>
+          <input type="text" name="purok" placeholder="Enter Purok/Sitio" required>
+        </div>
+
+
+        <!-- Hidden role -->
+        <input type="hidden" name="role_id" value="2">
+
+      </div>
+
+      <button type="submit">Register Account</button>
+    </form>
+
+    <div class="login-link">
+      Already have an account? <a href="login.html">Log in</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const passwordInput = document.getElementById('password');
+const confirmInput = document.getElementById('confirm_password');
+const passwordError = document.getElementById('passwordError');
+const confirmError = document.getElementById('confirmError');
+const form = document.querySelector('form');
+
+const provinceSelect = document.getElementById('province');
+const citySelect = document.getElementById('city');
+const barangaySelect = document.getElementById('barangay');
+
+/* =========================
+   PASSWORD LIVE VALIDATION
+   ========================= */
+
+let passwordTouched = false;
+let confirmTouched = false;
+
+passwordInput.addEventListener('input', () => {
+  passwordTouched = true;
+
+  if (passwordInput.value.length < 8) {
+    passwordError.style.display = 'block';
+    passwordError.textContent = 'Must be at least 8 characters long';
+  } else {
+    passwordError.style.display = 'none';
+  }
+
+  checkConfirmPassword();
+});
+
+confirmInput.addEventListener('input', () => {
+  confirmTouched = true;
+  checkConfirmPassword();
+});
+
+function checkConfirmPassword() {
+  if (!confirmTouched) return;
+
+  if (passwordInput.value !== confirmInput.value) {
+    confirmError.style.display = 'block';
+  } else {
+    confirmError.style.display = 'none';
+  }
+}
+
+/* =========================
+   FINAL SUBMIT CHECK
+   ========================= */
+
+form.addEventListener('submit', function(e) {
+  let valid = true;
+
+  if (passwordInput.value.length < 8) {
+    passwordError.style.display = 'block';
+    valid = false;
+  }
+
+  if (passwordInput.value !== confirmInput.value) {
+    confirmError.style.display = 'block';
+    valid = false;
+  }
+
+  if (!valid) e.preventDefault();
+});
+
+/* =========================
+   ADDRESS DROPDOWNS
+   ========================= */
+
+const locations = {
+  "Negros Occidental": {
+    "Bacolod City": ["Alangilan","Alijis","Banago","Barangay 16","Barangay 17"],
+    "Bago City": ["Abuanan","Alianza","Atipuluan","Taloc","Bagroy"],
+    "Cadiz City": ["Barangay I","Barangay II","Barangay III"],
+    "Kabankalan City": ["Barangay 1","Barangay 2","Barangay 3"],
+    "Himamaylan City": ["Cabadiangan","Mirasol","Barangay 1"]
+  }
+};
+
+provinceSelect.addEventListener('change', () => {
+  citySelect.innerHTML = '<option value="">Select City/Municipality</option>';
+  barangaySelect.innerHTML = '<option value="">Select Barangay</option>';
+
+  const cities = locations[provinceSelect.value];
+  if (cities) {
+    Object.keys(cities).forEach(city => {
+      const option = document.createElement('option');
+      option.value = city;
+      option.textContent = city;
+      citySelect.appendChild(option);
+    });
+  }
+});
+
+citySelect.addEventListener('change', () => {
+  barangaySelect.innerHTML = '<option value="">Select Barangay</option>';
+
+  const barangays = locations[provinceSelect.value][citySelect.value];
+  if (barangays) {
+    barangays.forEach(brgy => {
+      const option = document.createElement('option');
+      option.value = brgy;
+      option.textContent = brgy;
+      barangaySelect.appendChild(option);
+    });
+  }
+});
+</script>
+
+
+</body>
+</html>
