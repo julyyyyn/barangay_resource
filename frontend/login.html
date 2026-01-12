@@ -2,79 +2,597 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>BRMS | Login</title>
+<title>BRMS | Login - Barangay Resource Management System</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/login.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    color: #1e293b;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* LOGIN CONTAINER */
+.wrapper {
+    width: 100%;
+    max-width: 1000px;
+}
+
+.container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    min-height: 600px;
+}
+
+/* LEFT PANEL - MATCHING HOMEPAGE */
+.left-panel {
+    flex: 1;
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    color: white;
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.left-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+}
+
+.overlay {
+    position: relative;
+    z-index: 2;
+}
+
+/* Logo matching homepage */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+.logo-icon {
+    width: 50px;
+    height: 50px;
+    background: #60a5fa;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    font-size: 22px;
+    box-shadow: 0 4px 6px rgba(96, 165, 250, 0.3);
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-text .main {
+    font-size: 24px;
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+}
+
+.logo-text .sub {
+    font-size: 13px;
+    color: #dbeafe;
+    margin-top: 4px;
+}
+
+.overlay h1 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.overlay p {
+    color: #dbeafe;
+    font-size: 16px;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.overlay ul {
+    list-style: none;
+    margin-top: 30px;
+}
+
+.overlay ul li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    color: #dbeafe;
+    font-size: 15px;
+}
+
+.overlay ul li i {
+    color: #60a5fa;
+    font-size: 18px;
+}
+
+.back-home {
+    margin-top: 40px;
+}
+
+.back-home a {
+    color: #93c5fd;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    transition: color 0.2s;
+}
+
+.back-home a:hover {
+    color: white;
+}
+
+/* RIGHT PANEL - LOGIN FORM */
+.right-panel {
+    flex: 1.5;
+    padding: 60px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.right-panel h2 {
+    font-size: 32px;
+    color: #1e40af;
+    margin-bottom: 8px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.subtitle {
+    color: #64748b;
+    font-size: 16px;
+    text-align: center;
+    display: block;
+    margin-bottom: 40px;
+}
+
+/* ERROR MESSAGES */
+.error {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    font-size: 14px;
+    border: 1px solid #fecaca;
+    text-align: center;
+    display: none;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* FORM STYLES */
+.input-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px 20px 15px 45px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.3s;
+    background: #f8fafc;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    background: white;
+}
+
+.input-group::before {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #64748b;
+    font-size: 18px;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+}
+
+.input-group:first-of-type::before {
+    content: "\f0e0";
+}
+
+.input-group:last-of-type::before {
+    content: "\f023";
+}
+
+/* FORM OPTIONS */
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #64748b;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.options input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #3b82f6;
+}
+
+.options a {
+    color: #3b82f6;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.options a:hover {
+    color: #2563eb;
+}
+
+/* BUTTON STYLES - MATCHING HOMEPAGE */
+button[type="submit"] {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 6px 12px rgba(59, 130, 246, 0.3);
+}
+
+button[type="submit"]:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 20px rgba(37, 99, 235, 0.4);
+}
+
+button[type="submit"]:active {
+    transform: translateY(0);
+}
+
+/* REGISTER LINK */
+.login-link {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 25px;
+    border-top: 1px solid #e2e8f0;
+    color: #64748b;
+    font-size: 15px;
+}
+
+.login-link a {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 5px;
+    transition: color 0.2s;
+}
+
+.login-link a:hover {
+    color: #2563eb;
+}
+
+/* ALERT STYLES */
+.alert {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    font-size: 14px;
+    display: none;
+    animation: fadeIn 0.3s ease-out;
+    text-align: center;
+}
+
+.alert-success {
+    background: #d1fae5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+}
+
+.alert-info {
+    background: #dbeafe;
+    color: #1e40af;
+    border: 1px solid #bfdbfe;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        max-width: 500px;
+    }
+    
+    .left-panel {
+        padding: 40px 30px;
+        border-radius: 20px 20px 0 0;
+    }
+    
+    .right-panel {
+        padding: 40px 30px;
+        border-radius: 0 0 20px 20px;
+    }
+    
+    .overlay h1 {
+        font-size: 28px;
+    }
+    
+    .right-panel h2 {
+        font-size: 28px;
+    }
+    
+    .logo-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+    
+    .logo-text .main {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 15px;
+    }
+    
+    .left-panel {
+        padding: 30px 20px;
+    }
+    
+    .right-panel {
+        padding: 30px 20px;
+    }
+    
+    .input-group {
+        margin-bottom: 20px;
+    }
+    
+    .input-group input {
+        padding: 12px 15px 12px 40px;
+        font-size: 14px;
+    }
+    
+    .input-group::before {
+        left: 12px;
+        font-size: 16px;
+    }
+    
+    .overlay h1 {
+        font-size: 24px;
+    }
+    
+    .right-panel h2 {
+        font-size: 24px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="wrapper">
+  <div class="container">
 
-  <div class="left-panel">
-    <h1>Welcome Back</h1>
-    <p>
-      Log in to access the Barangay Resource Management System
-      and manage resources efficiently.
-    </p>
-    <ul>
-      <li>✔ Secure login</li>
-      <li>✔ Role-based access</li>
-      <li>✔ Barangay operations</li>
-    </ul>
-  </div>
-
-  <div class="right-panel">
-    <h2>Login</h2>
-    <span>Enter your credentials</span>
-
-    <form method="POST" action="../backend/login.php">
-
-        <p id="loginError" style="color:red; display:none; font-size:13px;">
-        Invalid email or password.
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+      <div class="overlay">
+        <!-- Logo added -->
+        <div class="logo">
+            <div class="logo-icon">BR</div>
+            <div class="logo-text">
+                <div class="main">Barangay RMS</div>
+                <div class="sub">Resource Management System</div>
+            </div>
+        </div>
+        
+        <h1>Hello,<br>Welcome!</h1>
+        <p>
+          Log in to access the Barangay Resource Management System
+          and manage resources efficiently.
         </p>
 
-      <div class="input-group full">
-        <label>Email</label>
-        <input type="email" name="email" placeholder="Enter your email" required>
+        <ul>
+          <li><i class="fas fa-shield-alt"></i> Secure login</li>
+          <li><i class="fas fa-users-cog"></i> Role-based access</li>
+          <li><i class="fas fa-hands-helping"></i> Barangay operations</li>
+        </ul>
+        
+        <!-- Back to home link -->
+        <div class="back-home">
+            <a href="../frontend/index.html">
+                <i class="fas fa-arrow-left"></i> Back to Homepage
+            </a>
+        </div>
       </div>
-
-      <div class="input-group full">
-        <label>Password</label>
-        <input type="password" name="password" placeholder="Enter your password" required>
-      </div>
-
-      <div class="remember-me">
-        <input type="checkbox" name="remember_me" id="remember_me">
-        <label for="remember_me">Remember me</label>
-      </div>
-
-      <button type="submit">Login</button>
-
-    </form>
-
-    <div class="login-link">
-      Don’t have an account? <a href="register.html">Register</a>
     </div>
-  </div>
 
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+      <h2>Login</h2>
+      <span class="subtitle">Enter your credentials</span>
+
+      <form method="POST" action="../backend/login.php">
+
+        <!-- Alert Messages -->
+        <div id="successAlert" class="alert alert-success">
+          Registration successful! Please log in.
+        </div>
+        
+        <div id="logoutAlert" class="alert alert-info">
+          You have been logged out.
+        </div>
+        
+        <p id="loginError" class="error">
+          Invalid email or password.
+        </p>
+
+        <div class="input-group">
+          <input type="email" name="email" placeholder="Email address" required>
+        </div>
+
+        <div class="input-group">
+          <input type="password" name="password" placeholder="Password" required>
+        </div>
+
+        <div class="options">
+          <label>
+            <input type="checkbox" name="remember_me">
+            Remember me
+          </label>
+          <a href="forgot_password.php">Forgot Password?</a>
+        </div>
+
+        <button type="submit">Login</button>
+
+      </form>
+
+      <div class="login-link">
+        Not a member yet? <a href="../frontend/register.html">Register</a>
+      </div>
+    </div>
+
+  </div>
 </div>
+
 <script>
 const params = new URLSearchParams(window.location.search);
 
+// Show success/error messages
 if (params.get('registered') === 'success') {
-  alert('Registration successful! Please log in.');
+  document.getElementById('successAlert').style.display = 'block';
+} else {
+  document.getElementById('successAlert').style.display = 'none';
 }
 
 if (params.get('error') === 'invalid') {
   document.getElementById('loginError').style.display = 'block';
+} else {
+  document.getElementById('loginError').style.display = 'none';
 }
 
 if (params.get('logout') === 'success') {
-  alert('You have been logged out.');
+  document.getElementById('logoutAlert').style.display = 'block';
+} else {
+  document.getElementById('logoutAlert').style.display = 'none';
 }
+
+// Add focus effects to inputs
+document.querySelectorAll('.input-group input').forEach(input => {
+    input.addEventListener('focus', function() {
+        this.style.transform = 'translateY(-2px)';
+        this.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.15)';
+    });
+    
+    input.addEventListener('blur', function() {
+        this.style.transform = 'translateY(0)';
+        this.style.boxShadow = 'none';
+    });
+});
+
+// Button hover effect
+const submitBtn = document.querySelector('button[type="submit"]');
+submitBtn.addEventListener('mouseenter', function() {
+    this.style.transform = 'translateY(-2px)';
+});
+
+submitBtn.addEventListener('mouseleave', function() {
+    this.style.transform = 'translateY(0)';
+});
+
+submitBtn.addEventListener('mousedown', function() {
+    this.style.transform = 'translateY(0)';
+});
+
+// Form validation
+const form = document.querySelector('form');
+form.addEventListener('submit', function(e) {
+    const email = form.querySelector('input[type="email"]');
+    const password = form.querySelector('input[type="password"]');
+    
+    let isValid = true;
+    
+    if (!email.value.trim()) {
+        email.style.borderColor = '#ef4444';
+        isValid = false;
+    }
+    
+    if (!password.value.trim()) {
+        password.style.borderColor = '#ef4444';
+        isValid = false;
+    }
+    
+    if (!isValid) {
+        e.preventDefault();
+    } else {
+        // Show loading state
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+        submitBtn.disabled = true;
+    }
+});
+
+// Clear error when typing
+document.querySelectorAll('input').forEach(input => {
+    input.addEventListener('input', function() {
+        this.style.borderColor = '#e2e8f0';
+    });
+});
 </script>
 
 </body>

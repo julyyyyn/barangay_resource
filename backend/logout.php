@@ -8,5 +8,5 @@ session_unset();
 session_destroy();
 
 // Redirect to login page
-header("Location: ../frontend/login.html?logout=success");
+header("Location: /barangay_resource/frontend/login.html?logout=success");
 exit();

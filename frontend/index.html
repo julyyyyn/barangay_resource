@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barangay RMS - Resource Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../frontend/css/index.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-text">
+                    <div class="main">Barangay RMS</div>
+                    <div class="sub">Resource Management System</div>
+                </div>
+            </div>
+            
+            <div class="auth-buttons">
+                <a href="../frontend/login.html" class="btn-signin">
+                    <i class="fas fa-sign-in-alt"></i> Sign In
+                </a>
+                <a href="../frontend/register.html" class="btn-register">
+                    <i class="fas fa-user-plus"></i> Register
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content animate-fade-in-up">
+                <div class="tagline animate-float">Serving Our Community Since 2020</div>
+                <h1>Barangay <span class="highlight">Resource Management System</span></h1>
+                <p class="hero-description">
+                    A unified platform for our barangay community to share resources, make donations, and support each other through efficient resource management.
+                </p>
+                
+                <div class="cta-buttons">
+                    <a href="../frontend/register.html" class="btn-primary">
+                        <i class="fas fa-play-circle"></i> Get Started
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section id="features" class="features">
+        <div class="hero-container">
+            <h2 class="section-title">What We Offer</h2>
+            <div class="features-grid">
+                <div class="feature-card animate-fade-in-up" style="animation-delay: 0.1s">
+                    <div class="feature-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3 class="feature-title">Resource Sharing</h3>
+                    <p class="feature-desc">Easily donate or share resources with community members in need. Contribute to building a stronger, more supportive barangay.</p>
+                </div>
+                
+                <div class="feature-card animate-fade-in-up" style="animation-delay: 0.2s">
+                    <div class="feature-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Borrow Resources</h3>
+                    <p class="feature-desc">Request to borrow available resources from the community. Simple approval process ensures fair distribution.</p>
+                </div>
+                
+                <div class="feature-card animate-fade-in-up" style="animation-delay: 0.3s">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Track Usage</h3>
+                    <p class="feature-desc">Monitor resource availability and track your donation history and borrowing requests in real-time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta-section">
+        <div class="hero-container">
+            <h2>Join Our Community Today</h2>
+            <p>Become part of a resourceful community where sharing and support make everyone stronger.</p>
+            <div class="cta-buttons">
+                <a href="../frontend/register.html" class="btn-primary">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </a>
+                <a href="../frontend/login.html" class="btn-secondary" style="background: rgba(255,255,255,0.15); color: white; border-color: rgba(255,255,255,0.3);">
+                    <i class="fas fa-sign-in-alt"></i> Sign In
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="main">Barangay RMS</div>
+                    <div class="sub">Resource Management System</div>
+                    <p style="color: #dbeafe; font-size: 14px; margin-top: 8px;">Serving Our Community Since 2020</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Get Started</h3>
+                    <ul>
+                        <li><a href="../frontend/login.html"><i class="fas fa-chevron-right"></i> Sign In</a></li>
+                        <li><a href="../frontend/register.html"><i class="fas fa-chevron-right"></i> Register</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Community Guidelines</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2026 Barangay RMS. All rights reserved. Serving Our Community Since 2026.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Function to scroll to section
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        // Update active nav link on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add animation delays
+            document.querySelectorAll('.animate-fade-in-up').forEach((el, index) => {
+                el.style.animationDelay = `${(index + 1) * 0.1}s`;
+            });
+            
+            // Add hover effects to feature cards
+            document.querySelectorAll('.feature-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Add click handlers to nav links for scrolling
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    
+                    if (href.startsWith('#')) {
+                        e.preventDefault();
+                        
+                        // Remove active class from all links
+                        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                        
+                        // Add active class to clicked link
+                        this.classList.add('active');
+                        
+                        // Scroll to section
+                        scrollToSection(href.substring(1));
+                    }
+                });
+            });
+            
+            // Handle scroll to update active nav link
+            function updateActiveNavLink() {
+                const sections = ['features', 'stats'];
+                let currentSection = '';
+                
+                sections.forEach(section => {
+                    const element = document.getElementById(section);
+                    if (element) {
+                        const rect = element.getBoundingClientRect();
+                        if (rect.top <= 100 && rect.bottom >= 100) {
+                            currentSection = section;
+                        }
+                    }
+                });
+                
+                // Update active nav link
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href === '#' && currentSection === '') {
+                        link.classList.add('active');
+                    } else if (href === `#${currentSection}`) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', updateActiveNavLink);
+            updateActiveNavLink(); // Initial check
+            
+            // Add click animation to buttons
+            document.querySelectorAll('.btn-primary, .btn-secondary, .btn-signin, .btn-register').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+            
+            // Add floating animation to some elements
+            setTimeout(() => {
+                const tagline = document.querySelector('.tagline');
+                if (tagline) {
+                    tagline.style.animation = 'float 3s ease-in-out infinite';
+                }
+            }, 1000);
+            
+            // Check if user has scrolled and show/hide scroll to top button
+            const scrollTopBtn = document.createElement('button');
+            scrollTopBtn.innerHTML = '<i class="fas fa-chevron-up"></i>';
+            scrollTopBtn.style.cssText = `
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
+                width: 50px;
+                height: 50px;
+                background: #3b82f6;
+                color: white;
+                border: none;
+                border-radius: 50%;
+                font-size: 20px;
+                cursor: pointer;
+                box-shadow: 0 4px 6px rgba(59, 130, 246, 0.5);
+                opacity: 0;
+                transform: translateY(20px);
+                transition: all 0.3s ease;
+                z-index: 100;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            `;
+            
+            document.body.appendChild(scrollTopBtn);
+            
+            // Show/hide scroll button
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollTopBtn.style.opacity = '1';
+                    scrollTopBtn.style.transform = 'translateY(0)';
+                } else {
+                    scrollTopBtn.style.opacity = '0';
+                    scrollTopBtn.style.transform = 'translateY(20px)';
+                }
+            });
+            
+            // Scroll to top
+            scrollTopBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
